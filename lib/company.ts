@@ -8,5 +8,5 @@ export const SNELROND = {
   btw: "",
   address: "",
   email: "info@snelrond.nl",
-  phone: "",
+  phone: "+31 6 11200883",
 };

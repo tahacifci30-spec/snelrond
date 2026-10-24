@@ -1,3 +1,4 @@
+import { CONTACT_FORM } from "./notifications";
 import { cache } from "react";
 import "server-only";
 import { DEFAULT_COMPANY, USE_SUPABASE, emptyCheck, newToken } from "./defaults";
@@ -69,7 +70,13 @@ export async function listLeads(companyId: string): Promise<Lead[]> {
  * altijd de laatste stand lezen voordat ze iets wijzigen.
  */
 export const pageSettings = cache((companyId: string) => getSettings(companyId));
-export const pageAgendaItems = cache((companyId: string) => listAgendaItems(companyId));
+export const pageAgendaItems = cache(async (companyId: string) => {
+  const items = await listAgendaItems(companyId);
+  // In de demo vanaf de website zien bezoekers geen echte contactaanvragen (naam en nummer van echte mensen).
+  // Dynamisch geladen: lib/auth leest zelf uit deze module.
+  const { getSession } = await import("./auth");
+  return (await getSession())?.demo ? items.filter((i) => i.created_by !== CONTACT_FORM) : items;
+});
 
 /** Zoveel maanden terug tellen afgeronde aanvragen nog mee in het dagelijkse werk (overzicht, meldingen, rooster). */
 export const RECENT_MONTHS = 12;

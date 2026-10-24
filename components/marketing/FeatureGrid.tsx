@@ -1,5 +1,5 @@
 /**
- * "Wat u krijgt": elk onderdeel met een klein stukje van hoe het er in Snelrond uitziet, in plaats van alleen een
+ * "Wat je krijgt": elk onderdeel met een klein stukje van hoe het er in Snelrond uitziet, in plaats van alleen een
  * icoon. Alle namen en bedragen zijn voorbeelden.
  */
 
@@ -46,7 +46,7 @@ export function FeatureGrid() {
         </div>
       </Tile>
 
-      {/* Overzicht: wie er op u wacht */}
+      {/* Overzicht: wie er op je wacht */}
       <Tile title="Overzicht" text="Elke aanvraag met de volgende stap." dark>
         <div className="space-y-2">
           {[

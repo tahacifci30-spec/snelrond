@@ -11,8 +11,9 @@ function Frame({ caption, children, below = false, interactive = false }: { capt
   if (interactive) return <div className="w-full">{children}</div>;
   return (
     <figure className={`mx-auto flex w-full ${below ? "flex-col-reverse" : "flex-col"}`}>
-      <figcaption className={`${below ? "mt-4" : "mb-3"} flex items-center justify-center gap-2 text-sm font-medium text-muted`}>
-        <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      {/* Gecentreerd, ook als de tekst over twee regels loopt: het oogje staat dan mee in de eerste regel. */}
+      <figcaption className={`${below ? "mt-4" : "mb-3"} px-4 text-center text-sm font-medium text-muted [text-wrap:balance]`}>
+        <svg viewBox="0 0 24 24" className="mr-1.5 inline-block h-4 w-4 align-[-3px]" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d="M2 12s3.5-7 10-7 10 7 10 7-3.500 7-10 7S2 12 2 12z" />
           <circle cx="12" cy="12" r="3" />
         </svg>

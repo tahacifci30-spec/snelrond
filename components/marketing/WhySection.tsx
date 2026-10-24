@@ -28,7 +28,7 @@ const Tick = () => (
 export function WhySection() {
   return (
     <section id="waarom" aria-labelledby="waarom-title" className="scroll-mt-20">
-      <div className="mx-auto max-w-6xl px-4 py-16 lg:py-24">
+      <div className="mx-auto max-w-6xl px-5 sm:px-6 py-16 lg:py-24">
         {/* 1. De belofte: voor wie dit is. Het grootste op de pagina na de kop bovenaan. */}
         <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
           <div>
@@ -110,7 +110,7 @@ export function WhySection() {
               </ul>
             </article>
           </div>
-          <p className="mt-6 text-muted">
+          <p className="mt-8 text-center text-muted">
             Benieuwd wat het jou oplevert?{" "}
             <Link href="/waarom-snelrond" className="font-semibold text-brand-strong underline decoration-2 underline-offset-4">
               Vergelijk en reken het uit

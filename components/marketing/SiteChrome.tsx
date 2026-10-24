@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { SNELROND } from "@/lib/company";
 import { Logo, btn } from "../ui";
-import { EdgeTint } from "./EdgeTint";
 import { MobileMenu } from "./MobileMenu";
 
 /** Kop van de website, gedeeld door de startpagina en "Over ons". */
@@ -11,9 +10,8 @@ export function SiteHeader() {
       <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-3 focus:top-3 focus:z-50 focus:rounded-lg focus:bg-white focus:px-4 focus:py-2">
         Naar hoofdinhoud
       </a>
-      <EdgeTint />
       <header className="material sticky top-0 z-30 border-b border-line/60">
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-2 px-4">
+        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-2 px-5 sm:px-6">
           <Logo />
           <nav aria-label="Hoofdnavigatie" className="hidden items-center gap-5 whitespace-nowrap text-[0.95rem] font-medium text-muted lg:flex xl:gap-7">
             <Link href="/#waarom" className="transition-colors hover:text-foreground">Waarom Snelrond</Link>
@@ -41,7 +39,7 @@ export function SiteHeader() {
 export function SiteFooter() {
   return (
     <footer className="border-t border-line bg-surface">
-      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 text-sm text-muted sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mx-auto grid max-w-6xl gap-8 px-5 sm:px-6 py-12 text-sm text-muted sm:grid-cols-2 lg:grid-cols-4">
         <div>
           <Logo />
           <p className="mt-3">Van aanvraag tot factuur.</p>

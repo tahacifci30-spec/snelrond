@@ -320,3 +320,14 @@ details[open] > :not(summary) {
 @media (prefers-reduced-motion: reduce) {
   .nav-progress { animation: none; opacity: 1; width: 100%; }
 }
+
+/* Kopfoto op de startpagina. Op de telefoon (smal en hoog) opgeschoven, zodat de monteur en de airco allebei in beeld
+   staan; vanaf tablet een rustiger uitsnede. Vast in CSS, zodat de waarde zeker meekomt in de bouw. */
+.hero-photo {
+  object-position: 88% center;
+}
+@media (min-width: 640px) {
+  .hero-photo {
+    object-position: 60% center;
+  }
+}

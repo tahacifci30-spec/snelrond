@@ -20,6 +20,8 @@ const RULES: { test: (t: string) => boolean; kind: NoticeKind; tab: string; titl
 
 /** Een gesprek dat via de website is ingepland krijgt een id met het moment van aanmaken erin. */
 export const CALL_PREFIX = "call-";
+/** Zo herken je een echte contactaanvraag van de website; die blijft verborgen in de demo (zie lib/store.ts). */
+export const CONTACT_FORM = "Contactformulier";
 export const callId = () => `${CALL_PREFIX}${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 
 export type NoticeSources = { roster?: RosterRequest[]; items?: AgendaItem[] };

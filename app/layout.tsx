@@ -23,6 +23,9 @@ export const metadata: Metadata = {
   },
   description:
     "Snelrond automatiseert het kantoorwerk van installatiebedrijven, van klantaanvraag tot offerte, uitvoering en factuur. Minder administratie, meer klussen.",
+  // Safari op de iPhone maakt anders van elk nummer een link, waardoor de pagina niet meer klopt met wat de server
+  // stuurde (hydration-fout). Belknoppen maken we zelf, met een echte tel:-link.
+  formatDetection: { telephone: false, email: false, address: false },
 };
 
 export const viewport: Viewport = { width: "device-width", initialScale: 1, viewportFit: "cover", themeColor: "#f2f4f1", interactiveWidget: "resizes-content" };

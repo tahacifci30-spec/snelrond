@@ -31,6 +31,12 @@ const nextConfig: NextConfig = {
   allowedDevOrigins: ["192.168.*.*", "10.*.*.*", "172.*.*.*"],
   // Alleen voor een tweede, aparte testserver; standaard blijft het gewone .next.
   distDir: process.env.NEXT_DIST_DIR || ".next",
+  experimental: {
+    // Geen bouwcache op schijf: daarin bewaart Turbopack ook de waarden van geheimen zoals AUTH_SECRET, en daar
+    // valt de geheimen-scan van Netlify over. De cache komt nooit online, maar zo ontstaat hij niet eens.
+    // Gevolg: elke bouw begint koud. Lokaal ontwikkelen (next dev) houdt zijn eigen cache.
+    turbopackFileSystemCacheForBuild: false,
+  },
   async headers() {
     return [
       { source: "/:path*", headers: common },

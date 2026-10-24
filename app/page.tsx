@@ -73,19 +73,25 @@ export default function MarketingPage() {
           Een donker verloop vanaf links (en op de telefoon vanaf onder) houdt de tekst leesbaar.
         */}
         <section className="relative isolate flex min-h-[38rem] items-end overflow-hidden bg-petrol sm:min-h-[min(88vh,52rem)]">
-          <Image
-            src="/brand/hero-monteur.jpg"
-            alt="Een monteur zet de kap terug op een airco aan de muur"
-            fill
-            priority
-            sizes="100vw"
-            // Onbewerkt: de foto is al klein genoeg en Next.js zou hem anders nog eens comprimeren.
-            unoptimized
-            className="-z-10 object-cover object-[32%_center] sm:object-[60%_center]"
-          />
+          {/* Op de telefoon staat de foto bovenaan en minder hoog: zo past er een breder stuk in beeld, met de monteur én de
+              airco. Vanaf tablet vult hij het hele blok. */}
+          <div className="absolute inset-x-0 top-0 -z-10 h-[23rem] sm:inset-0 sm:h-auto">
+            <Image
+              src="/brand/hero-monteur.jpg"
+              alt="Een monteur zet de kap terug op een airco aan de muur"
+              fill
+              priority
+              sizes="100vw"
+              // Onbewerkt: de foto is al klein genoeg en Next.js zou hem anders nog eens comprimeren.
+              unoptimized
+              className="hero-photo object-cover"
+            />
+            {/* Op de telefoon loopt de onderkant van de foto zacht over in het groen, zonder harde rand. */}
+            <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-petrol to-transparent sm:hidden" />
+          </div>
           <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-t from-petrol from-25% via-petrol/75 via-55% to-transparent sm:bg-gradient-to-r sm:from-petrol/90 sm:via-petrol/45 sm:via-40% sm:to-transparent sm:to-70%" />
 
-          <div className="mx-auto w-full max-w-6xl px-4 pb-12 pt-40 sm:pb-20">
+          <div className="mx-auto w-full max-w-6xl px-5 sm:px-6 pb-12 pt-40 sm:pb-20">
             <div className="max-w-2xl text-white">
               <h1 className="display text-[clamp(2.1rem,8.6vw,4.9rem)]">
                 <span className="block whitespace-nowrap">Meer klussen,</span>
@@ -108,7 +114,7 @@ export default function MarketingPage() {
 
         {/* Het probleem en het grootste verschil: geen CRM en geen losse offertetool */}
         <section aria-labelledby="usp" className="bg-petrol text-white">
-          <div className="mx-auto grid max-w-6xl gap-12 px-4 py-16 lg:grid-cols-[0.9fr_1.1fr] lg:py-20">
+          <div className="mx-auto grid max-w-6xl gap-12 px-5 sm:px-6 py-16 lg:grid-cols-[0.9fr_1.1fr] lg:py-20">
             <div>
               <h2 id="usp" className="display text-[clamp(1.9rem,7.4vw,3rem)] [&>span]:whitespace-nowrap">
                 <span className="block">Geen CRM.</span>
@@ -137,7 +143,7 @@ export default function MarketingPage() {
 
         {/* Wat u krijgt: elk onderdeel met een klein voorbeeld van hoe het eruitziet */}
         <section id="functies" className="scroll-mt-20 border-y border-line bg-surface">
-          <div className="mx-auto max-w-6xl px-4 py-16 lg:py-24">
+          <div className="mx-auto max-w-6xl px-5 sm:px-6 py-16 lg:py-24">
             <div className="flex flex-wrap items-end justify-between gap-6">
               <div>
                 <h2 className="display text-[clamp(2.2rem,6vw,3.75rem)]">Wat je krijgt</h2>
@@ -155,7 +161,7 @@ export default function MarketingPage() {
 
         {/* Hoe het werkt: de leiding van aanvraag tot factuur, uitkomend in het overzicht */}
         <section id="werkwijze" className="scroll-mt-20">
-          <div className="mx-auto max-w-6xl px-4 py-16 lg:py-24">
+          <div className="mx-auto max-w-6xl px-5 sm:px-6 py-16 lg:py-24">
             <h2 className="display-md text-4xl sm:text-5xl">Hoe het werkt</h2>
             <p className="mt-4 max-w-xl text-muted">Eén lijn van de eerste aanvraag tot de betaalde factuur. Alles komt samen in je overzicht.</p>
             <div className="mt-14">
@@ -196,7 +202,7 @@ export default function MarketingPage() {
               className="object-cover object-[55%_center]"
             />
           </div>
-          <div className="flex items-center px-4 py-16 sm:px-8 lg:px-16 lg:py-24">
+          <div className="flex items-center px-5 py-16 sm:px-8 lg:px-16 lg:py-24">
             <div className="max-w-lg">
               <h2 id="telefoon" className="display text-[clamp(2.1rem,6.5vw,3.5rem)]">Ook tussen twee klussen door.</h2>
               <p className="mt-5 max-w-md text-lg text-teal-50/85">
@@ -219,7 +225,7 @@ export default function MarketingPage() {
         </section>
 
         {/* Over ons */}
-        <section aria-label="Over ons" className="mx-auto max-w-6xl px-4 py-16 lg:py-20">
+        <section aria-label="Over ons" className="mx-auto max-w-6xl px-5 sm:px-6 py-16 lg:py-20">
           <Link href="/overons" className="group flex items-center gap-5 rounded-[1.75rem] border border-line bg-surface p-7 transition-[border-color,transform] duration-100 hover:border-brand/50 active:scale-[0.99]">
             <span className="flex shrink-0 -space-x-3" aria-hidden="true">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -239,7 +245,7 @@ export default function MarketingPage() {
 
         {/* Prijzen */}
         <section id="prijzen" className="scroll-mt-20 border-t border-line bg-surface">
-          <div className="mx-auto max-w-6xl px-4 py-16 lg:py-24">
+          <div className="mx-auto max-w-6xl px-5 sm:px-6 py-16 lg:py-24">
             <h2 className="display-md text-4xl sm:text-5xl">Kies je pakket</h2>
             <p className="mt-4 max-w-xl text-muted">
               Exclusief btw. Per maand opzegbaar; de opstartkosten zijn eenmalig en krijg je niet terug. Twijfel je?{" "}
@@ -340,7 +346,7 @@ export default function MarketingPage() {
 
         {/* Contact */}
         <section id="demo" className="scroll-mt-16 bg-petrol text-white">
-          <div className="mx-auto grid max-w-6xl items-start gap-12 px-4 py-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:py-24">
+          <div className="mx-auto grid max-w-6xl items-start gap-12 px-5 sm:px-6 py-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:py-24">
             <div>
               <div className="flex items-center gap-4">
                 <span className="flex shrink-0 -space-x-4">
@@ -380,7 +386,7 @@ export default function MarketingPage() {
 
         {/* Vragen */}
         <section id="vragen" className="scroll-mt-20">
-          <div className="mx-auto grid max-w-6xl gap-10 px-4 py-16 lg:grid-cols-[0.8fr_1.2fr] lg:py-24">
+          <div className="mx-auto grid max-w-6xl gap-10 px-5 sm:px-6 py-16 lg:grid-cols-[0.8fr_1.2fr] lg:py-24">
             <h2 className="display-md text-4xl sm:text-5xl">Vragen</h2>
             <div className="divide-y divide-line border-y border-line">
               {faq.slice(0, FAQ_SHOWN).map(([q, a]) => (

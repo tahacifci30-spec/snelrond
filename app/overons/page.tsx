@@ -48,7 +48,7 @@ export default function AboutPage() {
       <SiteHeader />
       <main id="main" className="flex-1">
         <section className="bg-white">
-          <div className="mx-auto max-w-6xl px-4 py-12 sm:py-16">
+          <div className="mx-auto max-w-6xl px-5 sm:px-6 py-12 sm:py-16">
             <h1 className="display max-w-2xl text-[clamp(2.75rem,7vw,5rem)]">
               Wij maken software die installateurs tijd teruggeeft.
             </h1>
@@ -60,7 +60,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-6xl px-4 py-12" aria-label="Het team">
+        <section className="mx-auto max-w-6xl px-5 sm:px-6 py-12" aria-label="Het team">
           <ul className="grid gap-10 md:grid-cols-2">
             {TEAM.map((p) => (
               <li key={p.name} className="overflow-hidden rounded-3xl border border-line bg-white shadow-sm">

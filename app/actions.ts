@@ -25,13 +25,14 @@ import { addDays, dayShort, isDay, isTime, isWeekend, todayNl } from "@/lib/date
 import { DEFAULT_COMPANY, USE_SUPABASE } from "@/lib/defaults";
 import { INSTALL_CHECKS, INSTALL_PIPE_OPTIONS, TECH_KEYS, TECH_OPTIONS } from "@/lib/dossier";
 import { isValidAnswer, optionLabel, visibleQuestions } from "@/lib/intake/questions";
-import { callId } from "@/lib/notifications";
+import { SNELROND } from "@/lib/company";
+import { CONTACT_FORM, callId } from "@/lib/notifications";
 import { applyValueChange, formatEur, generateInvoiceItems, generateQuoteItems, quoteTotal } from "@/lib/pricing/engine";
 import { PRICE_GROUPS, fromDisplay, setPath } from "@/lib/pricing/fields";
 import { DEFAULT_RULES, type FormQuestion } from "@/lib/pricing/rules";
 import { cancelText, confirmText, whatsapp } from "@/lib/reminders";
 import { STATUS_LABEL } from "@/lib/workflow";
-import { MAIL_ENABLED, sendMail, siteOrigin } from "@/lib/mail";
+import { MAIL_ENABLED, sendMail, sendNotice, siteOrigin } from "@/lib/mail";
 import {
   createLead,
   deleteAgendaItem,
@@ -810,7 +811,7 @@ export async function requestDemo(_: FormState, form: FormData): Promise<FormSta
       title: `${`Terugbellen: ${name} (${company})`.slice(0, 80 - `, bel ${phone}`.length)}, bel ${phone}`,
       date,
       who: OWNER,
-      created_by: "Website",
+      created_by: CONTACT_FORM,
       description: `${name} van ${company} wil teruggebeld worden voor een gesprek. Bellen: ${phone}. E-mail: ${email}.${plan && plan !== "onbekend" ? ` Interesse: pakket ${plan}.` : ""}`,
     });
   } catch {
@@ -818,10 +819,29 @@ export async function requestDemo(_: FormState, form: FormData): Promise<FormSta
   }
   revalidateAgenda();
 
+  // Ook per mail naar Snelrond, met antwoorden-aan de aanvrager. Mislukt de mail, dan staat de aanvraag nog in de agenda.
+  await sendNotice({
+    to: SNELROND.email,
+    replyTo: email,
+    subject: `Contactaanvraag: ${name} (${company})`,
+    text: [
+      "Nieuwe contactaanvraag via snelrond.nl:",
+      "",
+      `Naam: ${name}`,
+      `Bedrijf: ${company}`,
+      `Telefoon: ${phone}`,
+      `E-mail: ${email}`,
+      `Interesse: ${plan && plan !== "onbekend" ? `pakket ${plan}` : "weet nog niet"}`,
+      "",
+      "Bel binnen één werkdag terug. De aanvraag staat ook in de agenda van het dashboard.",
+    ].join("\n"),
+  });
+
   if (USE_SUPABASE) {
-    const { error } = await supabaseAdmin()
-      .from("demo_requests")
-      .insert({ name, company, email, plan, consent_at: stamp() });
+    const row = { name, company, email, plan, consent_at: stamp() };
+    // Met telefoonnummer als die kolom bestaat (supabase/migrations/0006_demo_phone.sql); anders zonder.
+    let { error } = await supabaseAdmin().from("demo_requests").insert({ ...row, phone });
+    if (error && /phone/i.test(error.message)) ({ error } = await supabaseAdmin().from("demo_requests").insert(row));
     if (error) {
       console.error("[demo_requests]", error.message);
       return { error: "Versturen is niet gelukt. Probeer het later opnieuw." };
@@ -834,7 +854,7 @@ export async function requestDemo(_: FormState, form: FormData): Promise<FormSta
   try {
     list = JSON.parse(await fs.readFile(file, "utf8"));
   } catch {}
-  list.push({ at: stamp(), name, company, email, plan });
+  list.push({ at: stamp(), name, company, email, phone, plan });
   await fs.mkdir(path.dirname(file), { recursive: true });
   await fs.writeFile(file, JSON.stringify(list, null, 2), "utf8");
   return { ok: true };

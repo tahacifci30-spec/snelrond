@@ -16,7 +16,7 @@ export default function WhyPage() {
     <>
       <SiteHeader />
       <main id="main">
-        <section className="mx-auto max-w-6xl px-4 pb-4 pt-10 sm:pt-14">
+        <section className="mx-auto max-w-6xl px-5 sm:px-6 pb-4 pt-10 sm:pt-14">
           <Link href="/#waarom" className="inline-flex min-h-11 items-center text-sm font-medium text-muted hover:text-foreground">
             ← Terug naar de startpagina
           </Link>
@@ -26,12 +26,12 @@ export default function WhyPage() {
           </p>
         </section>
 
-        <section className="mx-auto max-w-6xl px-4 py-10 lg:py-14">
+        <section className="mx-auto max-w-6xl px-5 sm:px-6 py-10 lg:py-14">
           <Comparison />
         </section>
 
         <section id="rekentool" className="scroll-mt-20 border-t border-line bg-surface">
-          <div className="mx-auto max-w-6xl px-4 py-16 lg:py-20">
+          <div className="mx-auto max-w-6xl px-5 sm:px-6 py-16 lg:py-20">
             <h2 className="display-md text-3xl sm:text-4xl">Reken zelf uit wat het oplevert</h2>
             <p className="mt-2 max-w-2xl text-muted">Vul vier getallen van je eigen bedrijf in. De uitkomst verschijnt zodra ze er alle vier staan.</p>
             <div className="mt-8">
@@ -40,7 +40,7 @@ export default function WhyPage() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-6xl px-4 py-16 text-center">
+        <section className="mx-auto max-w-6xl px-5 sm:px-6 py-16 text-center">
           <h2 className="display-md text-3xl sm:text-4xl">Benieuwd of het bij jouw bedrijf past?</h2>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
             <Link href="/#demo" className={`${btn.primary} min-h-12 px-6 text-base`}>Plan een gesprek</Link>

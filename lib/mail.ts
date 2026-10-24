@@ -45,6 +45,27 @@ export async function sendMail(mail: { to: string; subject: string; intro: strin
   }
 }
 
+/**
+ * Een korte melding als platte tekst, bijvoorbeeld naar Snelrond zelf bij een contactaanvraag via de website.
+ * Met replyTo kun je direct antwoorden aan wie het formulier invulde. Geeft terug of het gelukt is.
+ */
+export async function sendNotice(mail: { to: string; subject: string; text: string; replyTo?: string }): Promise<boolean> {
+  if (!MAIL_ENABLED) return false;
+  try {
+    const res = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${KEY}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ from: FROM, to: [mail.to], subject: mail.subject, text: mail.text, ...(mail.replyTo ? { reply_to: mail.replyTo } : {}) }),
+      signal: AbortSignal.timeout(8000),
+    });
+    if (!res.ok) console.error("[mail] melding versturen mislukt:", res.status);
+    return res.ok;
+  } catch (e) {
+    console.error("[mail] melding versturen mislukt:", (e as Error).message);
+    return false;
+  }
+}
+
 /** Het adres van de site, voor links in een mail. */
 export async function siteOrigin() {
   if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "");
